@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Button, Text, TouchableOpacity, View } from 'react-native'
 import { styles } from '../theme/appTheme'
 import { StackScreenProps } from '@react-navigation/stack'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 
 interface Props extends StackScreenProps<any, any> { }
@@ -31,18 +32,19 @@ export const ScreenOne = ({ navigation }: Props) => {
 
             <Text style={styles.text}>Navigate with arguments</Text>
 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity
                     style={{
                         ...styles.bigButton,
                         backgroundColor: '#5856D6'
-                        
+
                     }}
                     onPress={() => navigation.navigate('ProductScreen', {
                         id: 1,
                         brand: 'Coca Cola'
                     })}
                 >
+                    <Icon name="wine-outline" size={40} color="black" />
                     <Text>Product 1</Text>
                 </TouchableOpacity>
 
@@ -50,13 +52,14 @@ export const ScreenOne = ({ navigation }: Props) => {
                     style={{
                         ...styles.bigButton,
                         backgroundColor: '#FF9427'
-                        
+
                     }}
                     onPress={() => navigation.navigate('ProductScreen', {
                         id: 2,
                         brand: 'Fanta'
                     })}
                 >
+                    <Icon name="wine-outline" size={40} color="black" />
                     <Text>Product 2</Text>
                 </TouchableOpacity>
             </View>

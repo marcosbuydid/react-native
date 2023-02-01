@@ -8,6 +8,7 @@ import { StackNavigator } from './StackNavigator';
 import { colors } from '../theme/appTheme';
 import { Platform, Text } from 'react-native';
 import { TopTabNavigator } from './TopTabNavigator';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const BottomTabs = () => {
     return Platform.OS === 'ios'
@@ -38,16 +39,16 @@ function AndroidTab() {
                     let iconName: string = '';
                     switch (route.name) {
                         case 'BottomTabScreenOne':
-                            iconName = 'T1'
+                            iconName = 'caret-up-outline'
                             break;
                         case 'TopTabNavigator':
-                            iconName = 'TN'
+                            iconName = 'navigate-circle-outline'
                             break;
                         case 'StackNavigator':
-                            iconName = 'SN'
+                            iconName = 'albums-outline'
                             break;
                     }
-                    return <Text style={{ color }}>{iconName}</Text>
+                    return <Icon name={iconName} size={25} color={color} />
                 }
             })}
         >
@@ -83,16 +84,16 @@ export const IOSTab = () => {
                     let iconName: string = '';
                     switch (route.name) {
                         case 'BottomTabScreenOne':
-                            iconName = 'T1'
+                            iconName = 'caret-up-outline'
                             break;
                         case 'TopTabNavigator':
-                            iconName = 'TN'
+                            iconName = 'navigate-circle-outline'
                             break;
                         case 'StackNavigator':
-                            iconName = 'SN'
+                            iconName = 'compass-outline'
                             break;
                     }
-                    return <Text style={{ color }}>{iconName}</Text>
+                    return <Icon name={iconName} size={25} color={color} />
                 }
             })}
         >

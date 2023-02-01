@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     menuContainer: {
         marginVertical: 40,
         marginHorizontal: 50,
-        alignItems: 'center'
+        alignItems: 'flex-start'
     },
 
     buttonMenu: {

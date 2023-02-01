@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 export const BottomTabScreenTwo = () => {
 
     useEffect(() => {
-        console.log("bottom tab2 effect")
+        //console.log("bottom tab2 effect")
     })
 
     return (

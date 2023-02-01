@@ -5,6 +5,7 @@ import { SettingsScreen } from '../screens/SettingsScreen';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from '../theme/appTheme';
 import { BottomTabs } from './BottomTabNavigator';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Drawer = createDrawerNavigator();
 
@@ -32,20 +33,36 @@ const InternalMenu = ({ navigation }: DrawerContentComponentProps) => {
             </View>
 
             <View style={styles.menuContainer}>
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <Icon name="locate-outline" size={38} color="black" />
 
-                <TouchableOpacity
-                    style={styles.buttonMenu}
-                    onPress={() => navigation.navigate('BottomTabs')}
-                >
-                    <Text style={styles.textMenu}>Navigation</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonMenu}
+                        onPress={() => navigation.navigate('BottomTabs')}
+                    >
+                        <Text style={styles.textMenu}>Navigation</Text>
+                    </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity
-                    style={styles.buttonMenu}
-                    onPress={() => navigation.navigate('SettingsScreen')}
-                >
-                    <Text style={styles.textMenu}>Settings</Text>
-                </TouchableOpacity>
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginLeft: 4
+                }}>
+                    <Icon name="settings-outline" size={30} color="black" />
+
+                    <TouchableOpacity
+                        style={styles.buttonMenu}
+                        onPress={() => navigation.navigate('SettingsScreen')}
+                    >
+                        <Text style={styles.textMenu}> Settings</Text>
+                    </TouchableOpacity>
+                </View>
 
             </View>
         </DrawerContentScrollView>
