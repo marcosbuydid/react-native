@@ -9,7 +9,7 @@ export const BottomTabScreenTwo = () => {
 
     return (
         <View>
-            <Text>Bottom Tab Screen One</Text>
+            <Text>Bottom Tab Screen Two</Text>
         </View>
     )
 }
