@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { styles } from '../theme/appTheme';
+import { TouchableIconButton } from '../components/TouchableIconButton';
 
 
 export const BottomTabScreenOne = () => {
@@ -18,14 +19,18 @@ export const BottomTabScreenOne = () => {
             <Text style={{
                 ...styles.title,
                 fontSize: 20,
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                alignSelf: 'center'
             }}>
                 Some icons
             </Text>
-            <Text>
-                <Icon name="airplane-outline" size={30} color="black" />
-                <Icon name="alarm-outline" size={30} color="black" />
-                <Icon name="battery-full-outline" size={30} color="black" />
+            <Text style={{
+                justifyContent: 'space-between',
+                alignSelf: 'center'
+            }}>
+                <TouchableIconButton iconName="airplane-outline" />
+                <TouchableIconButton iconName="alarm-outline" />
+                <TouchableIconButton iconName="battery-full-outline" />
             </Text>
         </View>
     )
