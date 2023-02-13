@@ -1,20 +1,29 @@
 import 'react-native-gesture-handler';
-import React, { useEffect } from 'react'
-import { Text, View } from 'react-native'
-import movieDB from '../api/MovieDB';
-import { MovieDBNowPlaying } from '../interfaces/MovieInterface';
+import React from 'react'
+import { ActivityIndicator, Text, View } from 'react-native'
+import { UseMovies } from '../hooks/UseMovies'
+import { MoviePoster } from '../components/MoviePoster';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const HomeScreen = () => {
 
-    useEffect(() => {
-        movieDB.get<MovieDBNowPlaying>('/now_playing')
-            .then(response => { console.log(response.data.results[0].title) });
-    }, [])
+    const { nowPlayingMovies, isLoading } = UseMovies();
+    const { top } = useSafeAreaInsets();
 
+    if (isLoading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator color="blue" size={100} />
+            </View>
+        )
+    }
 
     return (
-        <View>
-            <Text>Home Screen</Text>
+        <View style={{ marginTop: top + 20 }}>
+            <MoviePoster
+                movie={nowPlayingMovies[0]}
+            />
+
         </View>
     )
 }
