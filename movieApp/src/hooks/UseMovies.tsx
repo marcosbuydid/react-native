@@ -1,26 +1,56 @@
 import { useEffect, useState } from 'react';
 import movieDB from '../api/MovieDB';
-import { Movie, MovieDBNowPlaying } from '../interfaces/MovieInterface';
+import { Movie, MovieDBResponse } from '../interfaces/MovieInterface';
+
+interface CinemaMovieTags {
+    nowPlaying: Movie[];
+    popular: Movie[];
+    topRated: Movie[];
+    upcoming: Movie[];
+}
 
 
 export const UseMovies = () => {
 
-    //we use this state because before the info is loaded nowPlayingMovies is undefined
     const [isLoading, setisLoading] = useState(true);
-    const [nowPlayingMovies, setNowPlayingMovies] = useState<Movie[]>([])
+    const [cinemaMovieTags, setCinemaMOvieTags] = useState<CinemaMovieTags>({
+        nowPlaying: [],
+        popular: [],
+        topRated: [],
+        upcoming: [],
+    })
 
     const getMovies = async () => {
-        const response = await movieDB.get<MovieDBNowPlaying>('/now_playing');
-        setNowPlayingMovies(response.data.results)
+        const nowPlayingMoviesPromise = movieDB.get<MovieDBResponse>('/now_playing');
+        const popularMoviesPromise = movieDB.get<MovieDBResponse>('/popular');
+        const topRatedMoviesPromise = movieDB.get<MovieDBResponse>('/top_rated');
+        const upcomingMoviesPromise = movieDB.get<MovieDBResponse>('/upcoming');
+
+        //this is the way to make multiple petitions simultaneously
+        const response = await Promise.all([
+            nowPlayingMoviesPromise,
+            popularMoviesPromise,
+            topRatedMoviesPromise,
+            upcomingMoviesPromise
+        ])
+
+        setCinemaMOvieTags({
+            nowPlaying: response[0].data.results,
+            popular: response[1].data.results,
+            topRated: response[2].data.results,
+            upcoming: response[3].data.results,
+        })
 
         setisLoading(false);
     }
 
     useEffect(() => {
         getMovies();
-
     }, [])
 
-    return { nowPlayingMovies, isLoading }
+    return {
+        ...cinemaMovieTags,
+        isLoading
+    }
 
 }
