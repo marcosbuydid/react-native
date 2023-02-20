@@ -13,7 +13,7 @@ interface CinemaMovieTags {
 export const UseMovies = () => {
 
     const [isLoading, setisLoading] = useState(true);
-    const [cinemaMovieTags, setCinemaMOvieTags] = useState<CinemaMovieTags>({
+    const [cinemaMovieTags, setCinemaMovieTags] = useState<CinemaMovieTags>({
         nowPlaying: [],
         popular: [],
         topRated: [],
@@ -34,7 +34,7 @@ export const UseMovies = () => {
             upcomingMoviesPromise
         ])
 
-        setCinemaMOvieTags({
+        setCinemaMovieTags({
             nowPlaying: response[0].data.results,
             popular: response[1].data.results,
             topRated: response[2].data.results,

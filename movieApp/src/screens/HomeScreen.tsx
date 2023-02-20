@@ -34,7 +34,7 @@ export const HomeScreen = () => {
                         itemWidth={300}
                     />
                 </View>
-                <HorizontalSlider title={'On Cinema'} movies={nowPlaying} />
+                {/* <HorizontalSlider title={'On Cinema'} movies={nowPlaying} /> */}
                 <HorizontalSlider title={'Populars'} movies={popular} />
                 <HorizontalSlider title={'Top Rated'} movies={topRated} />
                 <HorizontalSlider title={'Upcoming'} movies={upcoming} />

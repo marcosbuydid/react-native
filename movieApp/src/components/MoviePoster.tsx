@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
 import React from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Movie } from '../interfaces/MovieInterface';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
     movie: Movie;
@@ -12,18 +13,23 @@ interface Props {
 export const MoviePoster = ({ movie, height = 420, width = 300 }: Props) => {
 
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    const navigation = useNavigation<any>();
+
     return (
-        <View style={{
-            width,
-            height,
-        }}>
+        <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('DetailScreen', movie)}
+            style={{
+                width,
+                height,
+            }}>
             <View style={styles.imageContainer} >
                 <Image
                     source={{ uri }}
                     style={styles.image}
                 />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
