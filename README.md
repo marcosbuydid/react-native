@@ -49,3 +49,15 @@ with them and also some buttons.
 This branch contains all the code needed to undestand how a context works in
 react native and how to consume it. Also is included the concept of reducer, how it works
 and how to dispatch actions.
+
+### feature/movie-app
+This branch includes a beatiful movie app that lets you know what are the latest trending
+movies on cinema, also top rated ones, and much more. The info is obtained from the movie
+database https://www.themoviedb.org/, and the http requests are implemented using axios.
+When you click on each poster movie you get information about the actors, the budget, the rate 
+of the movie and also the genres.
+Regarding to the components used, the app includes a carousel, an horizontal slider, a scroll
+view and a gradient color component that changes depending of the colors of the poster movie
+selected.
+It's a nice proyect where you can learn a lot because it includes component reutilization, 
+custom hooks, interfaces, navigaton, a context used for the gradient, etc.
