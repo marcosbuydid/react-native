@@ -2,6 +2,12 @@ import { MenuItem } from "../interfaces/AppInterface";
 
 export const menuItems: MenuItem[] = [
     {
+        name: 'Alerts',
+        icon: 'alert-circle-outline',
+        component: 'AlertScreen'
+    },
+
+    {
         name: 'Animation 101',
         icon: 'cube-outline',
         component: 'Animation101Screen'
@@ -18,5 +24,4 @@ export const menuItems: MenuItem[] = [
         icon: 'toggle-outline',
         component: 'SwitchesScreen'
     },
-
 ]
