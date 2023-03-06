@@ -9,5 +9,16 @@ export const styles = StyleSheet.create({
         fontSize: 35,
         fontWeight: 'bold',
         color: 'black'
+    },
+
+    switchText: {
+        fontSize: 20
+    },
+
+    label: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10
     }
 });

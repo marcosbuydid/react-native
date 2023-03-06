@@ -24,4 +24,10 @@ export const menuItems: MenuItem[] = [
         icon: 'toggle-outline',
         component: 'SwitchesScreen'
     },
+
+    {
+        name: 'Text Inputs',
+        icon: 'document-text-outline',
+        component: 'TextInputScreen'
+    },
 ]
