@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, StyleSheet, View, RefreshControl, Text } from 'react-native'
+import { ScrollView, View, RefreshControl, Text } from 'react-native'
 import { HeaderTitle } from '../components/HeaderTitle'
 import { styles } from '../theme/appTheme'
 
