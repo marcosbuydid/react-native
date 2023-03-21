@@ -1,7 +1,12 @@
-# This is a react-native repository I made to deeply understand all the concepts of this framework.
-# The react-native version I use was the 0.71.1 with typescript. 
+# React Native Proyects
+I made this repository focused on providing a good starting point to understand all 
+the general concepts of this framework.
 
-## In every branch you will find a different proyect to practice or just learn.
+## Version
+The react-native version I use was the 0.71.1 with typescript.
+
+## Content
+In every branch you will find a different proyect to practice or just learn.
 
 ## Initialization
 When download every branch remember to install node modules (npm install) inside
@@ -61,3 +66,8 @@ view and a gradient color component that changes depending of the colors of the 
 selected.
 It's a nice proyect where you can learn a lot because it includes component reutilization, 
 custom hooks, interfaces, navigaton, a context used for the gradient, etc.
+
+### feature/react-native-components
+This branch contains all the code needed to learn or practice about react native components.
+When oppening the app, a menu will show you all the components used. You can click each one 
+to see the examples.
