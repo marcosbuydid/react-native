@@ -1,7 +1,8 @@
-import React, { Children, createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import { Usuario, LoginResponse, LoginData } from '../interfaces/AppInterface';
 import { AuthState, authReducer } from "./AuthReducer";
 import productApi from "../api/ProductApi";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type AuthContextProps = {
     errorMessage: string;
@@ -27,6 +28,33 @@ export const AuthProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(authReducer, authInitialState);
 
+    useEffect(() => {
+        tokenValidation();
+    }, [])
+
+    const tokenValidation = async () => {
+        const token = await AsyncStorage.getItem('token');
+
+        if (!token) return dispatch({ type: 'notAuthenticated' });
+
+        //if we have a token
+        const response = await productApi.get('/auth');
+
+        if (response.status !== 200) {
+            return dispatch({ type: 'notAuthenticated' });
+        }
+        else {
+            dispatch({
+                type: 'signUp',
+                payload: {
+                    token: response.data.token,
+                    user: response.data.usuario
+                }
+            })
+        }
+    }
+
+
     //I want to receive an object of type LoginData
     //the object I send to signIn must comply with the interface LoginData
     const signIn = async ({ correo, password }: LoginData) => {
@@ -39,20 +67,23 @@ export const AuthProvider = ({ children }: any) => {
                     user: response.data.usuario
                 }
             })
-            console.log(response.data)
+
+            await AsyncStorage.setItem('token', response.data.token);
 
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: 'addError',
-                payload: 'User or password not match'
+                payload: 'Invalid credentials'
             })
         }
     };
 
     const signUp = () => { };
 
-    const signOut = () => { };
+    const signOut = async () => {
+        await AsyncStorage.removeItem('token');
+        dispatch({ type: 'signOut' });
+    };
 
     const removeError = () => {
         dispatch({
