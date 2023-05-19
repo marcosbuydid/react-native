@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import { Usuario, LoginResponse, LoginData } from '../interfaces/AppInterface';
+import { Usuario, LoginResponse, LoginData, RegisterData, RegisterResponse } from '../interfaces/AppInterface';
 import { AuthState, authReducer } from "./AuthReducer";
 import productApi from "../api/ProductApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,7 +9,7 @@ type AuthContextProps = {
     token: string | null;
     user: Usuario | null;
     status: 'checking' | 'authenticated' | 'not-authenticated';
-    signUp: () => void;
+    signUp: (registerData: RegisterData) => void;
     signIn: (loginData: LoginData) => void;
     signOut: () => void;
     removeError: () => void;
@@ -78,7 +78,27 @@ export const AuthProvider = ({ children }: any) => {
         }
     };
 
-    const signUp = () => { };
+    const signUp = async ({ nombre, correo, password }: RegisterData) => {
+        try {
+            const response = await productApi.post<RegisterResponse>('/usuarios', { nombre, correo, password });
+            dispatch({
+                type: 'signUp',
+                payload: {
+                    token: response.data.token,
+                    user: response.data.usuario
+                }
+            })
+
+            await AsyncStorage.setItem('token', response.data.token);
+
+        } catch (error) {
+            dispatch({
+                type: 'addError',
+                payload: 'Cannot create user'
+            })
+        }
+
+    };
 
     const signOut = async () => {
         await AsyncStorage.removeItem('token');

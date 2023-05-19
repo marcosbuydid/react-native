@@ -7,7 +7,7 @@ const productApi = axios.create({ baseURL });
 
 //axios middleware
 //any petition made in the app,
-//async storage will put the token in it.
+//will have the token in it.
 productApi.interceptors.request.use(
     async (config) => {
         const token = await AsyncStorage.getItem('token');
