@@ -3,11 +3,14 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigator } from './src/navigators/StackNavigator';
 import { AuthProvider } from './src/context/AuthContext';
+import { ProductProvider } from './src/context/ProductsContext';
 
 const AppState = ({ children }: any) => {
   return (
     <AuthProvider>
-      {children}
+      <ProductProvider>
+        {children}
+      </ProductProvider>
     </AuthProvider>
   )
 }
