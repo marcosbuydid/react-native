@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Producto, ProductsResponse, Categoria } from '../interfaces/AppInterface';
 import productApi from "../api/ProductApi";
+import { ImagePickerResponse } from "react-native-image-picker";
 
 type ProductsContextProps = {
     products: Producto[];
@@ -9,7 +10,7 @@ type ProductsContextProps = {
     updateProduct: (categoryId: string, productName: string, productId: string) => Promise<void>;
     deleteProduct: (id: string) => Promise<void>;
     loadProductById: (id: string) => Promise<Producto>;
-    uploadImage: (data: any, id: string) => Promise<void>;
+    uploadImage: (data: ImagePickerResponse, id: string) => Promise<void>;
 }
 
 export const ProductsContext = createContext({} as ProductsContextProps);
@@ -51,8 +52,25 @@ export const ProductProvider = ({ children }: any) => {
         }))
     };
 
+    const uploadImage = async (data: ImagePickerResponse, id: string) => {
+
+        const file = {
+            uri: data?.assets && data.assets[0].uri,
+            type: data?.assets && data.assets[0].type,
+            name: data?.assets && data.assets[0].fileName
+        }
+        const formData = new FormData();
+
+        //archivo is the key property that backend needs for upload the image
+        formData.append('archivo', file)
+        try {
+            const response = await productApi.put(`/uploads/productos/${id}`, formData)
+        }
+        catch (error) {
+        }
+    };
+
     const deleteProduct = async (id: string) => { };
-    const uploadImage = async (data: any, id: string) => { };
 
     return (
         <ProductsContext.Provider value={{

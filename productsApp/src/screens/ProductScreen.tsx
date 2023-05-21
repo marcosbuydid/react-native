@@ -1,11 +1,12 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { ProductsStackParams } from '../navigators/ProductsNavigator'
 import { Picker } from '@react-native-picker/picker';
 import { useCategories } from '../hooks/useCategories';
 import { useForm } from '../hooks/useForm';
 import { ProductsContext } from '../context/ProductsContext';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'> { };
 
@@ -17,9 +18,11 @@ export const ProductScreen = ({ navigation, route }: Props) => {
         loadProduct();
     }, [])
 
+    const [tempPhotoUri, setTempPhotoUri] = useState<string>()
+
     const { categories } = useCategories();
 
-    const { loadProductById, addProduct, updateProduct } = useContext(ProductsContext);
+    const { loadProductById, addProduct, updateProduct, uploadImage } = useContext(ProductsContext);
 
     const { _id, categoriaId, nombre, img, form, onChange, setFormValue } = useForm({
         _id: id,
@@ -60,6 +63,34 @@ export const ProductScreen = ({ navigation, route }: Props) => {
         }
     }
 
+    const takePhotoWithCamera = () => {
+        launchCamera({
+            mediaType: 'photo',
+            quality: 0.5
+        }, (response) => {
+
+            if (response.didCancel) return;
+            const uri = response?.assets && response.assets[0].uri;
+            setTempPhotoUri(uri);
+            console.log(id)
+            uploadImage(response, id);
+        });
+    }
+
+    const chooseImageFromGallery = () => {
+        launchImageLibrary({
+            mediaType: 'photo',
+            quality: 0.5
+        }, (response) => {
+
+            if (response.didCancel) return;
+            const uri = response?.assets && response.assets[0].uri;
+            console.log(response)
+            setTempPhotoUri(uri);
+            uploadImage(response, id);
+        });
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -81,8 +112,8 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
                 <Picker
                     selectedValue={categoriaId}
-                    onValueChange={(value) =>
-                        onChange(value, 'categoriaId')
+                    onValueChange={(selectedValue) =>
+                        onChange(selectedValue, 'categoriaId')
                     }
                 >
                     {
@@ -120,7 +151,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
                     <Button
                         title='Camera'
-                        onPress={() => { }}
+                        onPress={takePhotoWithCamera}
                         color="#5856D6"
                         disabled={id.length == 0}
                     />
@@ -131,7 +162,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
                     <Button
                         title='Galery'
-                        onPress={() => { }}
+                        onPress={chooseImageFromGallery}
                         color="#5856D6"
                         disabled={id.length == 0}
                     />
@@ -140,9 +171,24 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
 
                 {
-                    (img.length > 0) && (
+                    (img.length > 0 && !tempPhotoUri) && (
                         <Image
                             source={{ uri: img }}
+                            style={{
+                                width: 200,
+                                height: 200,
+                                marginTop: 30,
+                                marginLeft: 85,
+
+                            }}
+                        />
+                    )
+                }
+
+                {
+                    (tempPhotoUri) && (
+                        <Image
+                            source={{ uri: tempPhotoUri }}
                             style={{
                                 width: 200,
                                 height: 200,
