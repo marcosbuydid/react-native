@@ -62,3 +62,11 @@ custom hooks, interfaces, navigaton, a context used for the gradient, etc.
 This proyect contains all the code needed to learn or practice about react native components.
 When oppening the app, a menu will show you all the components used. You can click each one 
 to see the examples.
+
+### productsApp
+This folder contains all the code needed to run an app designed to store differents products 
+asociated with a category, a user and an image. 
+It's a good proyect to learn how to manage authentication using JWT Token Authentication
+to sign-up, sign-in or sing-out using differents users.
+Is also included all the code needed to upload an image to identify the products in the app,
+using a local folder or the camera of your telephone.
